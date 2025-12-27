@@ -1,0 +1,260 @@
+@import './variables';
+
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media (min-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  @if $breakpoint == xs {
+    @media (max-width: $breakpoint-xs - 1px) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm - 1px) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md - 1px) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg - 1px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $breakpoint - 1px) {
+      @content;
+    }
+  }
+}
+
+@mixin touch-target($size: $touch-target-min) {
+  min-width: $size;
+  min-height: $size;
+  touch-action: manipulation;
+}
+
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-md;
+  font-weight: $font-weight-medium;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition: all $transition-base;
+  text-decoration: none;
+  @include touch-target;
+  user-select: none;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-color;
+  color: $text-light;
+  
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: $shadow;
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: $background-secondary;
+  color: $text-primary;
+  border: 1px solid $border-color;
+  
+  &:hover:not(:disabled) {
+    background-color: $background-tertiary;
+    border-color: $primary-color;
+  }
+  
+  &:active:not(:disabled) {
+    background-color: $background-tertiary;
+  }
+}
+
+@mixin card {
+  background-color: $background-card;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  box-shadow: $shadow;
+  transition: box-shadow $transition-base;
+  
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+}
+
+@mixin input-base {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  font-size: $font-size-md;
+  line-height: $line-height-normal;
+  color: $text-primary;
+  background-color: $background-primary;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  @include touch-target($touch-target-comfortable);
+  
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+  
+  &:disabled {
+    background-color: $background-secondary;
+    cursor: not-allowed;
+  }
+}
+
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin text-clamp($lines: 2) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $background-secondary;
+    border-radius: $border-radius-sm;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $border-color-dark;
+    border-radius: $border-radius-sm;
+    
+    &:hover {
+      background: $text-secondary;
+    }
+  }
+}
+
+@mixin loading-spinner($size: 16px, $color: $text-light) {
+  display: inline-block;
+  width: $size;
+  height: $size;
+  border: 2px solid rgba($color, 0.3);
+  border-top-color: $color;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+  }
+}
+
+@mixin container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $spacing-md;
+  
+  @include respond-to(sm) {
+    max-width: 600px;
+    padding: 0 $spacing-lg;
+  }
+  
+  @include respond-to(md) {
+    max-width: 960px;
+  }
+  
+  @include respond-to(lg) {
+    max-width: 1200px;
+  }
+}
+
+@mixin grid-responsive($columns: 1) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $spacing-md;
+  
+  @include respond-to(sm) {
+    gap: $spacing-lg;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+

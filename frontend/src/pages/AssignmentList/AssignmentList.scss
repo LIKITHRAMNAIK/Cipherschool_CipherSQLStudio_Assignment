@@ -1,0 +1,227 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+@import '../../styles/states';
+
+.assignment-list {
+  width: 100%;
+}
+
+.assignment-list__header {
+  margin-bottom: $spacing-xl;
+  text-align: center;
+  
+  @include respond-to(sm) {
+    text-align: left;
+  }
+}
+
+.assignment-list__heading {
+  font-size: $font-size-xl;
+  margin: 0 0 $spacing-sm 0;
+  color: $text-primary;
+  font-weight: $font-weight-bold;
+  
+  @include respond-to(sm) {
+    font-size: $font-size-xl * 1.2;
+  }
+}
+
+.assignment-list__subtitle {
+  font-size: $font-size-md;
+  color: $text-secondary;
+  margin: 0;
+}
+
+.assignment-list__grid {
+  @include grid-responsive(1);
+  
+  @include respond-to(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @include respond-to(md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.assignment-list__loading {
+  @include flex-center;
+  flex-direction: column;
+  gap: $spacing-md;
+  padding: $spacing-lg 0;
+  margin-bottom: $spacing-lg;
+  animation: fadeIn 0.3s ease-in;
+  
+  @include respond-to(sm) {
+    padding: $spacing-xl 0;
+  }
+}
+
+.loading-spinner {
+  @include loading-spinner(32px, $primary-color);
+}
+
+.loading-spinner__text {
+  color: $text-secondary;
+  font-size: $font-size-md;
+  margin: 0;
+}
+
+.assignment-list__error-state {
+  padding: $spacing-lg 0;
+  
+  @include respond-to(sm) {
+    padding: $spacing-xl 0;
+  }
+}
+
+.assignment-list__empty-state {
+  padding: $spacing-lg 0;
+  
+  @include respond-to(sm) {
+    padding: $spacing-xl 0;
+  }
+}
+
+.assignment-card {
+  @include card;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  min-height: 180px;
+  transition: transform $transition-base, box-shadow $transition-base;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $primary-color;
+  }
+  
+  &:active {
+    transform: translateY(-2px);
+  }
+  
+  @include respond-to(sm) {
+    min-height: 200px;
+    padding: $spacing-lg;
+  }
+  
+  @include respond-to(md) {
+    min-height: 220px;
+  }
+}
+
+.assignment-card__header {
+  @include flex-between;
+  margin-bottom: $spacing-sm;
+  gap: $spacing-sm;
+}
+
+.assignment-card__title {
+  font-size: $font-size-lg;
+  margin: 0;
+  color: $text-primary;
+  font-weight: $font-weight-semibold;
+  flex: 1;
+  line-height: $line-height-tight;
+  
+  @include respond-to(sm) {
+    font-size: $font-size-lg * 1.1;
+  }
+}
+
+.assignment-card__difficulty {
+  display: inline-block;
+  font-size: $font-size-xs;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+  font-weight: $font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  @include touch-target($touch-target-comfortable);
+}
+
+.assignment-card__difficulty--easy {
+  background-color: $success-light;
+  color: #065f46;
+}
+
+.assignment-card__difficulty--medium {
+  background-color: $warning-light;
+  color: #92400e;
+}
+
+.assignment-card__difficulty--hard {
+  background-color: $error-light;
+  color: #991b1b;
+}
+
+.assignment-card__description {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  margin: 0 0 $spacing-md 0;
+  line-height: $line-height-normal;
+  flex: 1;
+  @include text-clamp(3);
+  
+  @include respond-to(sm) {
+    font-size: $font-size-md;
+    @include text-clamp(4);
+  }
+}
+
+.assignment-card__footer {
+  margin-top: auto;
+  padding-top: $spacing-sm;
+  border-top: 1px solid $border-color;
+}
+
+.assignment-card__action {
+  font-size: $font-size-sm;
+  color: $primary-color;
+  font-weight: $font-weight-medium;
+}
+
+.assignment-card--skeleton {
+  pointer-events: none;
+  cursor: default;
+  
+  &:hover {
+    transform: none;
+    box-shadow: $shadow;
+    border-color: $border-color;
+  }
+}
+
+.assignment-card__title-skeleton {
+  @extend .skeleton;
+  height: 24px;
+  width: 70%;
+  margin-bottom: $spacing-sm;
+}
+
+.assignment-card__difficulty-skeleton {
+  @extend .skeleton;
+  height: 20px;
+  width: 60px;
+  border-radius: $border-radius-sm;
+}
+
+.assignment-card__description-skeleton {
+  @extend .skeleton;
+  height: 16px;
+  width: 100%;
+  margin-bottom: $spacing-xs;
+  
+  &:last-of-type {
+    width: 80%;
+  }
+}
+
+.assignment-card__action-skeleton {
+  @extend .skeleton;
+  height: 16px;
+  width: 120px;
+}

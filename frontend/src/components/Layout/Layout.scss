@@ -1,0 +1,47 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout__header {
+  background-color: $primary-color;
+  color: $text-light;
+  padding: $spacing-md 0;
+  box-shadow: $shadow;
+}
+
+.layout__container {
+  @include container;
+}
+
+.layout__title {
+  margin: 0;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  
+  @include respond-to(sm) {
+    font-size: $font-size-xl;
+  }
+}
+
+.layout__main {
+  flex: 1;
+  padding: $spacing-lg 0;
+}
+
+.layout__footer {
+  background-color: $background-secondary;
+  padding: $spacing-md 0;
+  margin-top: auto;
+}
+
+.layout__footer-text {
+  margin: 0;
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  text-align: center;
+}
